@@ -2,6 +2,7 @@ import '/widgets/new_trans.dart';
 import 'package:flutter/material.dart';
 import './widgets/tran_list.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,19 +30,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   final List<Transaction> _userTransaction = [
-    Transaction(
-      id: 'T1',
-      title: 'New SHOES',
-      amount: 69.69,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 'T2',
-      title: 'Laptop',
-      amount: 6969,
-      date: DateTime.now(),
-    ),
+    // Transaction(
+    //   id: 'T1',
+    //   title: 'New SHOES',
+    //   amount: 69.69,
+    //   date: DateTime.now(),
+    // ),
+    // Transaction(
+    //   id: 'T2',
+    //   title: 'Laptop',
+    //   amount: 6969,
+    //   date: DateTime.now(),
+    // ),
   ];
+  List<Transaction> get _recenttransaction {
+    return _userTransaction.where((tx) {
+      return tx.date.isAfter(
+        DateTime.now().subtract(
+          Duration(days: 7),
+        ),
+      );
+    }).toList();
+  }
 
   void _addnewTrans(String txtitle, double txamount) {
     final newtx = Transaction(
@@ -89,14 +99,7 @@ class _MyHomePageState extends State<MyHomePage> {
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Container(
-              width: double.infinity,
-              child: Card(
-                color: Colors.blue,
-                child: Text('CHART !'),
-                elevation: 5,
-              ),
-            ),
+            Chart(_recenttransaction),
             TranList(_userTransaction),
           ],
         ),

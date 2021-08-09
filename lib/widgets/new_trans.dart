@@ -17,7 +17,7 @@ class _NewTransState extends State<NewTrans> {
 
   final amountController = TextEditingController();
 
-  void submitdata() {
+  void _submitdata() {
     final enteredTitle = titleController.text;
     final enteredamount = double.parse(amountController.text);
     if (enteredTitle.isEmpty || enteredamount <= 0) {
@@ -26,6 +26,15 @@ class _NewTransState extends State<NewTrans> {
     widget.addTx(
       enteredTitle,
       enteredamount,
+    );
+  }
+
+  void _datepicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2021),
+      lastDate: DateTime.now(),
     );
   }
 
@@ -42,7 +51,7 @@ class _NewTransState extends State<NewTrans> {
               TextField(
                 decoration: InputDecoration(labelText: 'Title'),
                 controller: titleController,
-                onSubmitted: (_) => submitdata,
+                onSubmitted: (_) => _submitdata,
                 //for direct next line
                 textInputAction: TextInputAction.next,
                 // onChanged: (val) {
@@ -54,12 +63,12 @@ class _NewTransState extends State<NewTrans> {
                 // onChanged: (val) => amountInput = val,
                 controller: amountController,
                 keyboardType: TextInputType.number,
-                onSubmitted: (_) => submitdata,
+                onSubmitted: (_) => _submitdata,
                 textInputAction: TextInputAction.done,
               ),
               // ignore: deprecated_member_use
               FlatButton(
-                onPressed: submitdata,
+                onPressed: _submitdata,
                 child: Text('Add Transaction'),
                 textColor: Colors.purple,
               )
