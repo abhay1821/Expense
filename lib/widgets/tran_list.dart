@@ -4,12 +4,14 @@ import '../models/transaction.dart';
 
 class TranList extends StatelessWidget {
   final List<Transaction> transactions;
-  TranList(this.transactions);
+  final Function deleteT;
+
+  TranList(this.transactions, this.deleteT);
   @override
   Widget build(BuildContext context) {
     return //.map() to transform object to widget
         Container(
-      height: 500,
+      height: 550,
       //we can also use list view or singlechild scrollview instead of list view builder
       //but list view has infinite view so we can wrap under container and mention height
       //listview.builder view loads only what is visible
@@ -53,6 +55,11 @@ class TranList extends StatelessWidget {
                     ),
                     subtitle: Text(
                       DateFormat.yMMMd().format(transactions[index].date),
+                    ),
+                    trailing: IconButton(
+                      color: Theme.of(context).errorColor,
+                      icon: Icon(Icons.delete),
+                      onPressed: () => deleteT(transactions[index].id),
                     ),
                   ),
                 );

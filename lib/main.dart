@@ -16,6 +16,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.purple,
         accentColor: Colors.amber,
+        errorColor: Colors.red,
         fontFamily: 'Quicksand',
       ),
       home: MyHomePage(),
@@ -53,13 +54,14 @@ class _MyHomePageState extends State<MyHomePage> {
     }).toList();
   }
 
-  void _addnewTrans(String txtitle, double txamount) {
+  void _addnewTrans(String txtitle, double txamount, DateTime choosendate) {
     final newtx = Transaction(
       title: txtitle,
       amount: txamount,
-      date: DateTime.now(),
+      date: choosendate,
       id: DateTime.now().toString(),
     );
+
     //setstate to update widget
     //we cant use usertran=... that will voilate
     //since dart just stores address pf the objects in memory
@@ -82,6 +84,12 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 
+  void _deletetransaction(String id) {
+    setState(() {
+      _userTransaction.removeWhere((tx) => tx.id == id);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -100,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Chart(_recenttransaction),
-            TranList(_userTransaction),
+            TranList(_userTransaction, _deletetransaction),
           ],
         ),
       ),
