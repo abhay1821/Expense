@@ -23,7 +23,7 @@ class Chart extends StatelessWidget {
       }
       //shortcut for weekdays
       return {
-        'day': DateFormat.E().format(weekDay).substring(0, 1),
+        'day': DateFormat.E().format(weekDay).substring(0, 2),
         'amount': totalsum,
       };
     }).reversed.toList();

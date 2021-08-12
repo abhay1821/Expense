@@ -25,7 +25,7 @@ class _NewTransState extends State<NewTrans> {
     }
     final enteredTitle = _titleController.text;
     final enteredamount = double.parse(_amountController.text);
-    if (enteredTitle.isEmpty || enteredamount <= 0 || _selectedate == null) {
+    if (enteredTitle.isEmpty || enteredamount <= 0) {
       return;
     }
     widget.addTx(
@@ -53,60 +53,67 @@ class _NewTransState extends State<NewTrans> {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      elevation: 5,
-      child: Container(
-        padding: EdgeInsets.all(10),
-        child: Form(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            children: <Widget>[
-              TextField(
-                decoration: InputDecoration(labelText: 'Title'),
-                controller: _titleController,
-                onSubmitted: (_) => _submitdata,
-                //for direct next line
-                textInputAction: TextInputAction.next,
-                // onChanged: (val) {
-                //   titleInput = val;
-                // },
-              ),
-              TextField(
-                decoration: InputDecoration(labelText: 'Amount'),
-                // onChanged: (val) => amountInput = val,
-                controller: _amountController,
-                keyboardType: TextInputType.number,
-                onSubmitted: (_) => _submitdata,
-                textInputAction: TextInputAction.done,
-              ),
-              Expanded(
-                child: Row(
-                  children: <Widget>[
-                    Text(
-                      _selectedate == null
-                          ? 'NO DATE CHOOSEN'
-                          : DateFormat.yMd().format(_selectedate),
-                    ),
-                    // ignore: deprecated_member_use
-                    FlatButton(
-                      onPressed: _datepicker,
-                      child: Text(
-                        'Choose Date',
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      textColor: Theme.of(context).primaryColor,
-                    )
-                  ],
+    return SingleChildScrollView(
+      child: Card(
+        elevation: 5,
+        child: Container(
+          padding: EdgeInsets.only(
+              top: 10,
+              right: 10,
+              left: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10),
+          child: Form(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: <Widget>[
+                TextField(
+                  decoration: InputDecoration(labelText: 'Title'),
+                  controller: _titleController,
+                  onSubmitted: (_) => _submitdata,
+                  //for direct next line
+                  textInputAction: TextInputAction.next,
+                  // onChanged: (val) {
+                  //   titleInput = val;
+                  // },
                 ),
-              ),
-              // ignore: deprecated_member_use
-              RaisedButton(
-                onPressed: _submitdata,
-                child: Text('Add Transaction'),
-                color: Theme.of(context).primaryColor,
-                textColor: Colors.white,
-              )
-            ],
+                TextField(
+                  decoration: InputDecoration(labelText: 'Amount'),
+                  // onChanged: (val) => amountInput = val,
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  onSubmitted: (_) => _submitdata,
+                  textInputAction: TextInputAction.done,
+                ),
+                Expanded(
+                  child: Row(
+                    children: <Widget>[
+                      Text(
+                        // ignore: unnecessary_null_comparison
+                        _selectedate == null
+                            ? 'NO DATE CHOOSEN'
+                            : DateFormat.yMd().format(_selectedate),
+                      ),
+                      // ignore: deprecated_member_use
+                      FlatButton(
+                        onPressed: _datepicker,
+                        child: Text(
+                          'Choose Date',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        textColor: Theme.of(context).primaryColor,
+                      )
+                    ],
+                  ),
+                ),
+                // ignore: deprecated_member_use
+                RaisedButton(
+                  onPressed: _submitdata,
+                  child: Text('Add Transaction'),
+                  color: Theme.of(context).primaryColor,
+                  textColor: Colors.white,
+                )
+              ],
+            ),
           ),
         ),
       ),
