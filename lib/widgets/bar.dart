@@ -28,6 +28,7 @@ class Bar extends StatelessWidget {
             Container(
               height: constraints.maxHeight * 0.6,
               width: 10,
+              //3 ate
               child: Stack(
                 children: <Widget>[
                   Container(

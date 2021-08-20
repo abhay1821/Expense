@@ -23,25 +23,30 @@ class TranList extends StatelessWidget {
                     height: 10,
                   ),
                   Container(
-                      height: 200,
-                      child: Image.asset(
-                        'assets/images/check.jpg',
-                        fit: BoxFit.cover,
-                      )),
+                    height: 200,
+                    child: Image.asset(
+                      'assets/images/check.jpg',
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                 ],
               )
+            //used when list no is more
             : ListView.builder(
                 itemBuilder: (ctx, index) {
                   return Card(
                     elevation: 5,
+                    //2k
                     margin: EdgeInsets.symmetric(horizontal: 8, vertical: 5),
                     child: ListTile(
                       leading: CircleAvatar(
                         radius: 30,
                         child: Padding(
-                            padding: EdgeInsets.all(6),
-                            child: FittedBox(
-                                child: Text('${transactions[index].amount}'))),
+                          padding: EdgeInsets.all(6),
+                          child: FittedBox(
+                            child: Text('${transactions[index].amount}'),
+                          ),
+                        ),
                       ),
                       title: Text(
                         transactions[index].title,
@@ -51,7 +56,7 @@ class TranList extends StatelessWidget {
                       subtitle: Text(
                         DateFormat.yMMMd().format(transactions[index].date),
                       ),
-                      //trailing is the icon widget
+                      //trailing is the icon widget at right side
                       trailing: IconButton(
                         color: Theme.of(context).errorColor,
                         icon: Icon(Icons.delete),
@@ -60,6 +65,7 @@ class TranList extends StatelessWidget {
                     ),
                   );
                 },
+                //Creates a scrollable, linear array of widgets that are created on demand
                 itemCount: transactions.length,
               );
   }

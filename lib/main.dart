@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/services.dart';
 import '/widgets/new_trans.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +62,6 @@ class _MyHomePageState extends State<MyHomePage> {
     //so with add we can manipulate the hardcoded value or anything
     setState(() {
       _userTransaction.add(newtx);
-      print(_userTransaction.length);
     });
     Navigator.pop(context);
   }
@@ -101,21 +99,24 @@ class _MyHomePageState extends State<MyHomePage> {
       body: SingleChildScrollView(
         child: Column(
           //mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
             Container(
-                //dynamically allocating the size of device
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
-                    0.3,
-                child: Chart(_recenttransaction)),
+              //dynamically allocating the size of device
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.3,
+              child: Chart(_recenttransaction),
+            ),
             Container(
-                height: (MediaQuery.of(context).size.height -
-                        appBar.preferredSize.height -
-                        MediaQuery.of(context).padding.top) *
-                    0.7,
-                child: TranList(_userTransaction, _deletetransaction)),
+              height: (MediaQuery.of(context).size.height -
+                      appBar.preferredSize.height -
+                      MediaQuery.of(context).padding.top) *
+                  0.7,
+              child: TranList(_userTransaction, _deletetransaction),
+            ),
           ],
         ),
       ),
